@@ -24,13 +24,21 @@ class App extends Component {
     ]
   };
 
-componentDidMount () {
+componentDidMount() {
+  this.handleTimeout();
+}
+
+componentDidUpdate() {
+  this.handleTimeout();
+}
+
+handleTimeout () {
   const {posts, counter} = this.state;
   posts[0].title = 'O titulo mudou';
 
   setTimeout(() => {
-    this.setState({ posts });
-  }, 5000);
+    this.setState({ posts, counter: counter + 1 });
+  }, 1000);
 }
 
 render () {
