@@ -15,12 +15,18 @@ componentDidMount() {
 
 loadPosts = async () => {
   const postsResponse = fetch('https://jsonplaceholder.typicode.com/posts');
+  const photosResponse = fetch('https://jsonplaceholder.typicode.com/photos');
 
-  const [posts] = await Promise.all([postsResponse]);
+  const [posts, photos] = await Promise.all([postsResponse, photosResponse]);
 
-  const postsJason = await posts.json();
+  const postsJson = await posts.json();
+  const photosJson = await photos.json();
 
-  this.setState({ posts: postsJason });
+  const postsAndPhotos = postsJson.map((post, index) => {
+    return {...post, cover: photosJson[index].url }
+  })
+
+  this.setState({ posts: postsAndPhotos });
 }
 
 
@@ -29,15 +35,19 @@ render () {
   const { posts, counter } = this.state;
 
   return (
-    <div className='App'>
-      <p>{counter}</p>
+    <section className='container'>
+    <div className='posts'>
       {posts.map(post =>(
-        <div key={post.id}>
+        <div className='post'>
+          <img src={post.cover} alt={post.title} />
+        <div key={post.id} className='post-content'>
           <h1>{post.title}</h1>
           <p>{post.body}</p>
         </div>
+        </div>
       ))}
     </div>
+    </section>
   );
 }
 }
