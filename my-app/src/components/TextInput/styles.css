@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300&display=swap');
+
+.text-input {
+    width: 100%;
+    font-size: 30px;
+    padding: 5;
+    padding: 0 10px;
+    margin-top: 20px;
+    font-size: 1.3em;
+    line-height: 1.5em;
+    box-sizing: border-box;
+    border-radius: 5px
+    
+}
