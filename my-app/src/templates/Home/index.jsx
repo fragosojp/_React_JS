@@ -45,15 +45,20 @@ loadMorePosts = () => {
 
 
   render() {
-    const { posts } = this.state;
+    const { posts, page, postsPerPage, allPosts } = this.state;
+    const noMorePosts = page + postsPerPage >= allPosts.length;
 
     return (
       <section className='container'>
         <Posts posts={posts}/>
+
+        <div class="button-container">
        <Button
         text="Load more posts"
         onClick={this.loadMorePosts}
+        disabled={noMorePosts}
        />
+      </div>
       </section>
     );
   }
