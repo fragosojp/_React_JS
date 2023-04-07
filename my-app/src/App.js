@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { Component } from 'react';
+import { PostCard } from './components/PostCard';
 
 class App extends Component {
   state = {
@@ -9,46 +10,46 @@ class App extends Component {
   };
 
 
-componentDidMount() {
-  this.loadPosts();
-}
+  componentDidMount() {
+    this.loadPosts();
+  }
 
-loadPosts = async () => {
-  const postsResponse = fetch('https://jsonplaceholder.typicode.com/posts');
-  const photosResponse = fetch('https://jsonplaceholder.typicode.com/photos');
+  loadPosts = async () => {
+    const postsResponse = fetch('https://jsonplaceholder.typicode.com/posts');
+    const photosResponse = fetch('https://jsonplaceholder.typicode.com/photos');
 
-  const [posts, photos] = await Promise.all([postsResponse, photosResponse]);
+    const [posts, photos] = await Promise.all([postsResponse, photosResponse]);
 
-  const postsJson = await posts.json();
-  const photosJson = await photos.json();
+    const postsJson = await posts.json();
+    const photosJson = await photos.json();
 
-  const postsAndPhotos = postsJson.map((post, index) => {
-    return {...post, cover: photosJson[index].url }
-  })
+    const postsAndPhotos = postsJson.map((post, index) => {
+      return { ...post, cover: photosJson[index].url }
+    })
 
-  this.setState({ posts: postsAndPhotos });
-}
+    this.setState({ posts: postsAndPhotos });
+  }
 
 
 
-render () {
-  const { posts, counter } = this.state;
+  render() {
+    const { posts, counter } = this.state;
 
-  return (
-    <section className='container'>
-    <div className='posts'>
-      {posts.map(post =>(
-        <div className='post'>
-          <img src={post.cover} alt={post.title} />
-        <div key={post.id} className='post-content'>
-          <h1>{post.title}</h1>
-          <p>{post.body}</p>
+    return (
+      <section className='container'>
+        <div className='posts'>
+          {posts.map(post => (
+            <PostCard
+              key={post.id}
+              title={post.title}
+              body={post.body}
+              id={post.id}
+              cover={post.cover}
+            />
+          ))}
         </div>
-        </div>
-      ))}
-    </div>
-    </section>
-  );
-}
+      </section>
+    );
+  }
 }
 export default App;
