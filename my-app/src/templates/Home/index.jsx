@@ -1,13 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+
 import { Component } from 'react';
-import { Posts } from './components/Posts';
-import { loadPosts } from './utils/load-posts';
+import './styles.css';
+
+import { Posts } from '../../components/Posts';
+import { loadPosts } from '../../utils/load-posts'
 
 
-class App extends Component {
+export class Home extends Component {
   state = {
-    counter: 0,
     posts: []
   };
 
@@ -32,4 +32,3 @@ loadPosts = async () => {
     );
   }
 }
-export default App;
